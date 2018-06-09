@@ -33,7 +33,7 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
       | expr '*' expr  {$$ = $1 * $3;}
       | expr '/' expr  {$$ = $1 / $3;}
-      | expr '^' expr  {$$ = $1 ^ $3;}
+      | expr '^' expr  {$$ = pow($1,$3);}
       | NUM            {$$ = $1;}
       | '-' expr %prec UMINUS {$$ = -$2;}
       ;
