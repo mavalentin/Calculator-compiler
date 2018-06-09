@@ -20,6 +20,7 @@
 
 %left '-' '+'
 %left '*' '/'
+$left '^'
 %right UMINUS
 
 %start line
