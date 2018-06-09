@@ -21,3 +21,11 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+
+
+
+lex.yy.c
+y.tab
+y.tab.h
+y.output
+a.out
