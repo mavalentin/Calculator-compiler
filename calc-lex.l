@@ -25,10 +25,6 @@ ID       {LETTER}({LETTER}|{DIGIT})*
 "-"     {return '-';}
 "*"     {return '*';}
 "/"     {return '/';}
-"^2"    {return '^2';}
-"("     {return '(';}
-")"     {return ')';}
-"^"    {return '^';}
 \n      {return '\n';}
   
 

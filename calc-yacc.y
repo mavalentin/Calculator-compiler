@@ -19,8 +19,6 @@
  /* %type <value> line */
 
 %left '-' '+'
-%left '(' ')'
-%left '^2' ''
 %left '*' '/'
 %right UMINUS
 
@@ -34,9 +32,6 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
       | expr '*' expr  {$$ = $1 * $3;}
       | expr '/' expr  {$$ = $1 / $3;}
-	  | expr '^' expr  {$$ = $1 ^ $3;}
-	  | expr '(' expr  {$$ = $1 ( $3;}
-	  | expr ')' expr  {$$ = $1 ) $3;}	  
       | NUM            {$$ = $1;}
       | '-' expr %prec UMINUS {$$ = -$2;}
       ;
