@@ -25,8 +25,8 @@ ID       {LETTER}({LETTER}|{DIGIT})*
 "-"     {return '-';}
 "*"     {return '*';}
 "/"     {return '/';}
-\n      {return '\n';}
 "^"     {return '^';}
+\n      {return '\n';}
 
 
 
