@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <math.h>
 %}
 
 
@@ -20,6 +21,7 @@
 
 %left '-' '+'
 %left '*' '/'
+%left '^'
 %right UMINUS
 
 %start line
@@ -32,6 +34,7 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
       | expr '*' expr  {$$ = $1 * $3;}
       | expr '/' expr  {$$ = $1 / $3;}
+      | expr '^' expr  {$$ = pow($1,$3);}
       | NUM            {$$ = $1;}
       | '-' expr %prec UMINUS {$$ = -$2;}
       ;
