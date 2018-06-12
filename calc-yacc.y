@@ -34,7 +34,12 @@ line  : expr '\n'      {printf("Result: %f\n", $1); exit(0);}
 expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
       | expr '*' expr  {$$ = $1 * $3;}
-      | expr '/' expr  {$$ = $1 / $3;}
+      | expr '/' expr  {if($3 == 0.0){
+				yyerror("division by zero not allowed");
+				exit(-1);}
+			else
+				$$ = $1 / $3;
+			}
       | expr '%' expr  {$$ = $1 / 100 * $3;}
       | expr '^' expr  {$$ = pow($1,$3);}
       | '(' expr ')'   {$$ = $2;}
