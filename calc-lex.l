@@ -5,7 +5,7 @@
 %}
 
 DIGIT    [0-9]
-NUM      {DIGIT}+(\.{DIGIT}+)?
+NUM      {DIGIT}+((\.|,){DIGIT}+)?
 
 LETTER   [a-zA-Z]
 ID       {LETTER}({LETTER}|{DIGIT})*
@@ -26,6 +26,10 @@ ID       {LETTER}({LETTER}|{DIGIT})*
 "*"     {return '*';}
 "/"     {return '/';}
 "^"     {return '^';}
+"("	{return '(';}
+")"	{return ')';}
+"%"	{return '%';}
+"|"	{return '|';}
 \n      {return '\n';}
 
 
