@@ -30,6 +30,7 @@ ID       {LETTER}({LETTER}|{DIGIT})*
 "("	{return '(';}
 ")"	{return ')';}
 "%"	{return '%';}
+"!"	{return '!';}
 "|"	{return '|';}
 \n      {return '\n';}
 
