@@ -14,6 +14,7 @@
 
 %token <value> NUM
 %token IF
+%token SQRT
 %token <lexeme> ID
 
 %type <value> expr
@@ -38,6 +39,7 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '^' expr  {$$ = pow($1,$3);}
       | '(' expr ')'   {$$ = $2;}
       | '|' expr '|'   {$$ = abs($2);}
+      | SQRT '(' expr ')' {$$ = sqrt($3);}
       | NUM            {$$ = $1;}
       | '-' expr %prec UMINUS {$$ = -$2;}
       ;
