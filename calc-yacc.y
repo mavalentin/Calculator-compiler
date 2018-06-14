@@ -25,7 +25,7 @@
 %left '^'
 %left '%'
 %left '!'
-%right UMINUS
+/*%right UMINUS*/
 
 %start line
 
@@ -57,7 +57,7 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
       | '(' expr ')'   {$$ = $2;}
       | '|' expr '|'   {$$ = abs($2);}
       | NUM            {$$ = $1;}
-      | '-' expr %prec UMINUS {$$ = -$2;}
+      | '-' expr       {$$ = -$2;}
       ;
 
 %%
