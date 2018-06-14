@@ -25,7 +25,7 @@
 %left '^'
 %left '%'
 %left '!'
-%right UMINUS
+/*%right UMINUS*/
 
 %start line
 
