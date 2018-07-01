@@ -39,9 +39,7 @@ start : line start
 
 line  : assignment '\n' {}
       | expr '\n'      {printf("Result: %f\n", $1); /*exit(0);*/}
-      | error		{
-				yyerrok;
-			}
+      | error
       ;
 expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
