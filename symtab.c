@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct var 
+typedef struct var
 {
     char *name;
     double *value;
@@ -13,7 +13,7 @@ typedef struct var
 var *head = NULL;
 
 
-double* searchVarVal(char *name) 
+double* searchVarVal(char *name)
 {
     var *current = head;
 
@@ -21,8 +21,9 @@ double* searchVarVal(char *name)
         current = current->next;
     }
 
-    if (current != NULL)
+    if (current != NULL) {
         return current->value;
+}
     else 
         return NULL;
 }
@@ -32,7 +33,7 @@ var* searchNode(char *name)
 {
     var *current = head;
 
-    while (current != NULL && strcmp(head->name, name) != 0) {
+    while (current != NULL && strcmp(current->name, name) != 0) {
         current = current->next;
     }
 
@@ -43,9 +44,11 @@ var* searchNode(char *name)
 }
 
 
-void updateSymTab(char *name, double *value) 
+void updateSymTab(char *name, double *v)
 {
     var *n = searchNode(name);
+    double *value = (double *) malloc(sizeof(*v));
+    *value = *v;
     if (n == NULL) {
         var *new_node;
     new_node = malloc(sizeof(var));

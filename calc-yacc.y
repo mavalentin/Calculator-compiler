@@ -37,15 +37,10 @@ start : line start
       | line
       ;
 
-line  : expr '\n'      {printf("Result: %f\n", $1); /*exit(0);*/}
-      | assignment '\n' {exit(0);}
-      | ID             {double *val = searchVarVal($1);
-			if(val != NULL){
-				printf("%s: %f\n", $1,*val); exit(0);
-			} else { 
-				yyerror("variable is not defined");
-				exit(-1);
-				}
+line  : assignment '\n' {}
+      | expr '\n'      {printf("Result: %f\n", $1); /*exit(0);*/}
+      | error		{
+				yyerrok;
 			}
       ;
 expr  : expr '+' expr  {$$ = $1 + $3;}
@@ -72,6 +67,13 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
       | '(' expr ')'   {$$ = $2;}
       | '|' expr '|'   {$$ = abs($2);}
       | NUM            {$$ = $1;}
+      | ID	       {double *val = searchVarVal($1);
+			if(val != NULL){
+				$$ = *val;
+			} else { 
+				yyerror("variable is not defined");
+				}
+			}
       | '-' expr       {$$ = -$2;}
       ;
 assignment	: ID '=' expr	{char *name = $1;
