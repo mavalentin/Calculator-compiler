@@ -30,10 +30,14 @@
 %left '!'
 /*%right UMINUS*/
 
-%start line
+%start start
 
 %%
-line  : expr '\n'      {printf("Result: %f\n", $1); exit(0);}
+start : line start
+      | line
+      ;
+
+line  : expr '\n'      {printf("Result: %f\n", $1); /*exit(0);*/}
       | assignment '\n' {exit(0);}
       | ID             {double *val = searchVarVal($1);
 			if(val != NULL){
@@ -73,7 +77,8 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
 assignment	: ID '=' expr	{char *name = $1;
 				double *value = &$3;
 				updateSymTab(name, value);}
-	  	; 
+	  	;
+
 
 %%
 
