@@ -23,7 +23,7 @@
 %type <lexeme> assignment
  /*%type <value> line */
 
-%right '=' '\"'
+%right '='
 %left '-' '+'
 %left '*' '/'
 %left '^'
