@@ -9,6 +9,7 @@ NUM      {DIGIT}+((\.|,){DIGIT}+)?
 
 LETTER   [a-zA-Z]
 ID       {LETTER}({LETTER}|{DIGIT})*
+STR      (").*(")
 
 
 %%
@@ -21,6 +22,7 @@ ID       {LETTER}({LETTER}|{DIGIT})*
           return NUM;}
 {ID}     {yylval.lexeme = strdup(yytext);
           return ID;}
+
 
 "+"     {return '+';}
 "-"     {return '-';}

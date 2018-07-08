@@ -17,6 +17,7 @@
 %token IF
 %token SQRT
 %token <lexeme> ID
+%token <lexeme> STR
 
 %type <value> expr
 %type <lexeme> assignment
@@ -38,8 +39,7 @@ start : line start
       ;
 
 line  : assignment '\n' {}
-      | expr '\n'      {printf("Result: %f\n", $1); /*exit(0);*/}
-      | error
+      | expr '\n'      {printf("Result: %f\n", $1);}
       ;
 expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
@@ -70,6 +70,7 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
 				$$ = *val;
 			} else { 
 				yyerror("variable is not defined");
+                $$ = 0;
 				}
 			}
       | '-' expr       {$$ = -$2;}
@@ -77,7 +78,8 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
 assignment	: ID '=' expr	{char *name = $1;
 				double *value = &$3;
 				updateSymTab(name, value);}
-	  	;
+            /*| ID '=' STR    {yyerror("can not assign strings to variables. this is a calculator");}*/
+	  	    ;
 
 
 %%
