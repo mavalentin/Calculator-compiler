@@ -2,73 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct var
-{
+typedef struct var {
     char *name;
     double *value;
     struct var *next;
 } var;
 
-
 var *head = NULL;
 
+var* searchNode(char *name) {
+    var *i = head;
 
-double* searchVarVal(char *name)
-{
-    var *current = head;
-
-    while (current != NULL && strcmp(current->name, name) != 0) {
-        current = current->next;
-    }
-
-    if (current != NULL) {
-        return current->value;
-}
-    else 
-        return NULL;
+    while (i != NULL && strcmp(i->name, name) != 0) i = i->next;
+    if (i != NULL) return i;
+    else return NULL;
 }
 
-
-var* searchNode(char *name) 
-{
-    var *current = head;
-
-    while (current != NULL && strcmp(current->name, name) != 0) {
-        current = current->next;
-    }
-
-    if (current != NULL)
-        return current;
-    else 
-        return NULL;
-}
-
-
-void updateSymTab(char *name, double *v)
-{
-    var *n = searchNode(name);
+void updateSymTab(char *name, double *v) {
+    var *node = searchNode(name);
     double *value = (double *) malloc(sizeof(*v));
     *value = *v;
-    if (n == NULL) {
-        var *new_node;
-    new_node = malloc(sizeof(var));
-
-    new_node->name = strdup(name);
-    new_node->value = value;
-    new_node->next = head;
-    head = new_node;
-    } else {
-        n->value = value;
-    }    
+    if (node == NULL) {
+        var *newNode;
+        newNode = malloc(sizeof(var));
+        newNode->name = strdup(name);
+        newNode->value = value;
+        newNode->next = head;
+        head = newNode;
+    } else node->value = value;  
 }
 
-
-void print_list() {
-    var *current = head;
-
-    printf("\t Printing...\n");
-    while (current != NULL) {
-        printf("\t%s = %f\n", current->name, *current->value);
-        current = current->next;
-    }
+double* searchVarVal(char *name) {
+    var *i = head;
+    while (i != NULL && strcmp(i->name, name) != 0) i = i->next;
+    if (i != NULL) return i->value;
+    else return NULL;
 }
