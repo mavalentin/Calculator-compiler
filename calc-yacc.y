@@ -23,7 +23,7 @@
 %type <lexeme> assignment
  /*%type <value> line */
 
-%right '='
+%right '=' '\"'
 %left '-' '+'
 %left '*' '/'
 %left '^'
@@ -40,6 +40,7 @@ start : line start
 
 line  : assignment '\n' {}
       | expr '\n'      {printf("Result: %f\n", $1);}
+      | error
       ;
 expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
@@ -75,10 +76,10 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
 			}
       | '-' expr       {$$ = -$2;}
       ;
-assignment	: ID '=' expr	{char *name = $1;
+assignment	: ID '=' STR   {yyerror("can not assign strings to variables. this is a calculator");}
+            | ID '=' expr	{char *name = $1;
 				double *value = &$3;
 				updateSymTab(name, value);}
-            /*| ID '=' STR    {yyerror("can not assign strings to variables. this is a calculator");}*/
 	  	    ;
 
 

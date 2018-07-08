@@ -8,8 +8,8 @@ DIGIT    [0-9]
 NUM      {DIGIT}+((\.|,){DIGIT}+)?
 
 LETTER   [a-zA-Z]
+STR      (\").*(\")
 ID       {LETTER}({LETTER}|{DIGIT})*
-STR      (").*(")
 
 
 %%
@@ -20,6 +20,8 @@ STR      (").*(")
 "sqrt"   {return SQRT;}
 {NUM}    {yylval.value = atof(yytext);
           return NUM;}
+{STR}    {yylval.lexeme = strdup(yytext);
+          return STR;}
 {ID}     {yylval.lexeme = strdup(yytext);
           return ID;}
 
@@ -35,6 +37,7 @@ STR      (").*(")
 "!"	{return '!';}
 "|"	{return '|';}
 "="	{return '=';}
+"\"" {return '\"';}
 \n      {return '\n';}
 
 
