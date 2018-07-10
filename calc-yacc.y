@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <math.h>
+#include "symtab.c"
 %}
 
 
@@ -16,10 +17,13 @@
 %token IF
 %token SQRT
 %token <lexeme> ID
+%token <lexeme> STR
 
 %type <value> expr
+%type <lexeme> assignment
  /*%type <value> line */
 
+%right '='
 %left '-' '+'
 %left '*' '/'
 %left '^'
@@ -27,11 +31,16 @@
 %left '!'
 /*%right UMINUS*/
 
-%start line
+%start start
 
 %%
-line  : expr '\n'      {printf("Result: %f\n", $1); exit(0);}
-      | ID             {printf("Result: %s\n", $1); exit(0);}
+start : line start
+      | line
+      ;
+
+line  : assignment '\n' {}
+      | expr '\n'      {printf("Result: %f\n", $1);}
+      | error
       ;
 expr  : expr '+' expr  {$$ = $1 + $3;}
       | expr '-' expr  {$$ = $1 - $3;}
@@ -57,8 +66,22 @@ expr  : expr '+' expr  {$$ = $1 + $3;}
       | '(' expr ')'   {$$ = $2;}
       | '|' expr '|'   {$$ = abs($2);}
       | NUM            {$$ = $1;}
+      | ID	       {double *val = searchVarVal($1);
+			if(val != NULL){
+				$$ = *val;
+			} else { 
+				yyerror("variable is not defined");
+                $$ = 0;
+				}
+			}
       | '-' expr       {$$ = -$2;}
       ;
+assignment	: ID '=' STR   {yyerror("can not assign strings to variables. this is a calculator");}
+            | ID '=' expr	{char *name = $1;
+				double *value = &$3;
+				updateSymTab(name, value);}
+	  	    ;
+
 
 %%
 

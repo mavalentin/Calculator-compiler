@@ -8,6 +8,7 @@ DIGIT    [0-9]
 NUM      {DIGIT}+((\.|,){DIGIT}+)?
 
 LETTER   [a-zA-Z]
+STR      (\").*(\")
 ID       {LETTER}({LETTER}|{DIGIT})*
 
 
@@ -19,8 +20,11 @@ ID       {LETTER}({LETTER}|{DIGIT})*
 "sqrt"   {return SQRT;}
 {NUM}    {yylval.value = atof(yytext);
           return NUM;}
+{STR}    {yylval.lexeme = strdup(yytext);
+          return STR;}
 {ID}     {yylval.lexeme = strdup(yytext);
           return ID;}
+
 
 "+"     {return '+';}
 "-"     {return '-';}
@@ -32,6 +36,7 @@ ID       {LETTER}({LETTER}|{DIGIT})*
 "%"	{return '%';}
 "!"	{return '!';}
 "|"	{return '|';}
+"="	{return '=';}
 \n      {return '\n';}
 
 
