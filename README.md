@@ -14,4 +14,5 @@ decimal numbers depend on used system locale (comma or point)
 
 Variable assignment: `x=5`  
 Display variable value: `x`  
-Variables can be used inside the mathematical operations: `x+y`
+Variables can be used inside the mathematical operations: `x+y`  
+Non-defined variables will cause a "not defined" warning, but will be used as value 0 for the performed operation
